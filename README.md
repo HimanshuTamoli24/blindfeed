@@ -23,7 +23,7 @@ You don't need Node.js or any build tools to use Blindfeed. The repository inclu
 
 1. **Download or Clone the Repository**:
    ```bash
-   git clone https://github.com/HimanshuTamoli24/x-ex.git
+   git clone https://github.com/HimanshuTamoli24/blindfeed.git
    ```
    *(or download and extract the ZIP from GitHub)*
 
