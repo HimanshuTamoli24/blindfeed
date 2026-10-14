@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Blindfeed (FairTweets): Pure CSS rules injected at document_start.
+   Guarantees zero flash of engagement counts or identity elements on X.
+   ========================================================================== */
+
+/* 1. MASTER DISABLED STATE: when disabled, no hiding or blurring occurs */
+html[data-blindfeed-enabled="false"] article [data-testid="app-text-transition-container"],
+html[data-blindfeed-enabled="false"] article a[href$="/analytics"],
+html[data-blindfeed-enabled="false"] article a[href$="/retweets"],
+html[data-blindfeed-enabled="false"] article a[href$="/quotes"],
+html[data-blindfeed-enabled="false"] article a[href$="/likes"],
+html[data-blindfeed-enabled="false"] article a[href*="/status/"]:has(> time) ~ *,
+html[data-blindfeed-enabled="false"] article div:has(> a[href*="/status/"] > time) ~ *,
+html[data-blindfeed-enabled="false"] article [data-testid="User-Name"],
+html[data-blindfeed-enabled="false"] article [data-testid="icon-verified"],
+html[data-blindfeed-enabled="false"] article [data-testid="socialContext"],
+html[data-blindfeed-enabled="false"] article [data-testid^="UserAvatar-Container"],
+html[data-blindfeed-enabled="false"] article [data-testid="Tweet-User-Avatar"],
+html[data-blindfeed-enabled="false"] article time {
+  display: revert !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   ENGAGEMENT COUNTS HIDING
+   Buttons remain 100% clickable and functional because only the count text is hidden.
+   ========================================================================== */
+
+/* Likes count (action button & opened post stats link) */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article [data-testid="like"] [data-testid="app-text-transition-container"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article [data-testid="unlike"] [data-testid="app-text-transition-container"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article a[href$="/likes"] {
+  display: none !important;
+}
+
+/* Replies count */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article [data-testid="reply"] [data-testid="app-text-transition-container"] {
+  display: none !important;
+}
+
+/* Reposts count (retweet button & opened post stats link) */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="retweet"] [data-testid="app-text-transition-container"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="unretweet"] [data-testid="app-text-transition-container"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article a[href$="/retweets"] {
+  display: none !important;
+}
+
+/* Quotes count */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-quotes="false"]) article a[href$="/quotes"] {
+  display: none !important;
+}
+
+/* Views / Impressions count (analytics link, viewCount testid, opened post sibling) */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article a[href$="/analytics"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article [data-testid="viewCount"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article a[href*="/status/"]:has(> time) ~ *,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article div:has(> a[href*="/status/"] > time) ~ * {
+  display: none !important;
+}
+
+/* General fallback for any remaining text transition containers when all core metrics are hidden */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]):not([data-blindfeed-hide-replies="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="app-text-transition-container"] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   IDENTITY BLURRING
+   Blurs profile picture, name, @handle, badge, and timestamp.
+   ========================================================================== */
+
+/* Profile pictures / Avatars */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article [data-testid^="UserAvatar-Container"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article [data-testid="Tweet-User-Avatar"] {
+  filter: blur(6px) !important;
+}
+
+/* Verification badge */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-badge="false"]) article [data-testid="icon-verified"] {
+  filter: blur(6px) !important;
+  opacity: 0.15 !important;
+}
+
+/* Timestamps */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article time,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article a[href*="/status/"] time {
+  filter: blur(6px) !important;
+}
+
+/* Display Name & Handle */
+/* When both are blurred: blur the entire User-Name container */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]):not([data-blindfeed-blur-username="false"]) article [data-testid="User-Name"] {
+  filter: blur(6px) !important;
+}
+
+/* When only Display Name is blurred */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"])[data-blindfeed-blur-username="false"] article [data-testid="User-Name"] a[role="link"]:not([tabindex="-1"]) {
+  filter: blur(6px) !important;
+}
+
+/* When only Username/Handle is blurred */
+html:not([data-blindfeed-enabled="false"])[data-blindfeed-blur-name="false"]:not([data-blindfeed-blur-username="false"]) article [data-testid="User-Name"] a[tabindex="-1"] {
+  filter: blur(6px) !important;
+}
+
+/* Social Context (e.g., "X reposted") */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]) article [data-testid="socialContext"] {
+  filter: blur(6px) !important;
+}
