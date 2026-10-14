@@ -1,6 +1,6 @@
 /* ==========================================================================
    Blindfeed (FairTweets): Pure CSS rules injected at document_start.
-   Guarantees zero flash of engagement counts or identity elements on X.
+   Guarantees zero flash of engagement counts or identity elements on X & Instagram.
    ========================================================================== */
 
 /* 1. MASTER DISABLED STATE: when disabled, no hiding or blurring occurs */
@@ -16,94 +16,153 @@ html[data-blindfeed-enabled="false"] article [data-testid="icon-verified"],
 html[data-blindfeed-enabled="false"] article [data-testid="socialContext"],
 html[data-blindfeed-enabled="false"] article [data-testid^="UserAvatar-Container"],
 html[data-blindfeed-enabled="false"] article [data-testid="Tweet-User-Avatar"],
-html[data-blindfeed-enabled="false"] article time {
+html[data-blindfeed-enabled="false"] article time,
+/* Instagram Master Revert */
+html[data-blindfeed-enabled="false"] article a[href*="/liked_by/"],
+html[data-blindfeed-enabled="false"] article section + div:not(:has(button)):not(:has(input)),
+html[data-blindfeed-enabled="false"] article header img,
+html[data-blindfeed-enabled="false"] article header canvas,
+html[data-blindfeed-enabled="false"] article header a[role="link"],
+html[data-blindfeed-enabled="false"] article header svg[aria-label*="Verified"],
+html[data-blindfeed-enabled="false"] a[href^="/p/"] ul,
+html[data-blindfeed-enabled="false"] a[href^="/reel/"] ul {
   display: revert !important;
   filter: none !important;
   opacity: 1 !important;
 }
 
 /* ==========================================================================
-   ENGAGEMENT COUNTS HIDING
-   Buttons remain 100% clickable and functional because only the count text is hidden.
+   ENGAGEMENT COUNTS HIDING (X & INSTAGRAM)
+   Buttons remain 100% clickable and functional because only count text is hidden.
    ========================================================================== */
 
-/* Likes count (action button & opened post stats link) */
+/* Likes count */
+/* X */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article [data-testid="like"] [data-testid="app-text-transition-container"],
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article [data-testid="unlike"] [data-testid="app-text-transition-container"],
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article a[href$="/likes"] {
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article a[href$="/likes"],
+/* Instagram: Feed & Modal "Liked by..." section */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article a[href*="/liked_by/"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article section ~ div:has(a[href*="/liked_by/"]),
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article span:has(> a[href*="/liked_by/"]),
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) article section + div:not(:has(button)):not(:has(input)) > div,
+/* Instagram Reels Like count */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) div:has(> svg[aria-label="Like"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) div:has(> svg[aria-label="Unlike"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) button:has(svg[aria-label="Like"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) button:has(svg[aria-label="Unlike"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) div[role="button"]:has(svg[aria-label="Like"]) + div,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]) div[role="button"]:has(svg[aria-label="Unlike"]) + div {
   display: none !important;
 }
 
-/* Replies count */
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article [data-testid="reply"] [data-testid="app-text-transition-container"] {
+/* Replies / Comments count */
+/* X */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article [data-testid="reply"] [data-testid="app-text-transition-container"],
+/* Instagram: "View all N comments" link */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article a[href^="/p/"][href*="comments"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article a[href$="/comments/"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) article a[href*="/comments/"],
+/* Instagram Reels Comments count */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) div:has(> svg[aria-label="Comment"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) button:has(svg[aria-label="Comment"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-replies="false"]) div[role="button"]:has(svg[aria-label="Comment"]) + div {
   display: none !important;
 }
 
-/* Reposts count (retweet button & opened post stats link) */
+/* Reposts / Shares count */
+/* X */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="retweet"] [data-testid="app-text-transition-container"],
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="unretweet"] [data-testid="app-text-transition-container"],
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article a[href$="/retweets"] {
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) article a[href$="/retweets"],
+/* Instagram Reels Share count */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) div:has(> svg[aria-label="Share"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) div:has(> svg[aria-label="Share Post"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) button:has(svg[aria-label="Share Post"]) ~ span,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-reposts="false"]) div[role="button"]:has(svg[aria-label="Share Post"]) + div {
   display: none !important;
 }
 
-/* Quotes count */
+/* Quotes count (X) */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-quotes="false"]) article a[href$="/quotes"] {
   display: none !important;
 }
 
-/* Views / Impressions count (analytics link, viewCount testid, opened post sibling) */
+/* Views / Impressions / Plays count */
+/* X */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article a[href$="/analytics"],
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article [data-testid="viewCount"],
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article a[href*="/status/"]:has(> time) ~ *,
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article div:has(> a[href*="/status/"] > time) ~ * {
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) article div:has(> a[href*="/status/"] > time) ~ *,
+/* Instagram: Explore grid hover overlay counts */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) a[href^="/p/"] ul,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-views="false"]) a[href^="/reel/"] ul {
   display: none !important;
 }
 
-/* General fallback for any remaining text transition containers when all core metrics are hidden */
+/* Fallback for general text transitions */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-hide-likes="false"]):not([data-blindfeed-hide-replies="false"]):not([data-blindfeed-hide-reposts="false"]) article [data-testid="app-text-transition-container"] {
   display: none !important;
 }
 
 /* ==========================================================================
-   IDENTITY BLURRING
-   Blurs profile picture, name, @handle, badge, and timestamp.
+   IDENTITY BLURRING (X & INSTAGRAM)
+   Blurs profile pictures, names, usernames, badges, and timestamps.
    ========================================================================== */
 
 /* Profile pictures / Avatars */
+/* X */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article [data-testid^="UserAvatar-Container"],
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article [data-testid="Tweet-User-Avatar"] {
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article [data-testid="Tweet-User-Avatar"],
+/* Instagram */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article header img,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article header canvas,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) article img[alt*="profile picture"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-avatar="false"]) div[role="dialog"] header img {
   filter: blur(6px) !important;
 }
 
-/* Verification badge */
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-badge="false"]) article [data-testid="icon-verified"] {
+/* Verification badges */
+/* X */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-badge="false"]) article [data-testid="icon-verified"],
+/* Instagram */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-badge="false"]) article header svg[aria-label*="Verified"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-badge="false"]) svg[aria-label*="Verified"] {
   filter: blur(6px) !important;
   opacity: 0.15 !important;
 }
 
 /* Timestamps */
+/* X */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article time,
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article a[href*="/status/"] time {
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article a[href*="/status/"] time,
+/* Instagram */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article header time,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-timestamp="false"]) article time[datetime] {
   filter: blur(6px) !important;
 }
 
-/* Display Name & Handle */
-/* When both are blurred: blur the entire User-Name container */
-html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]):not([data-blindfeed-blur-username="false"]) article [data-testid="User-Name"] {
+/* Display Name & Username */
+/* X: When both are blurred: blur the entire User-Name container */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]):not([data-blindfeed-blur-username="false"]) article [data-testid="User-Name"],
+/* Instagram: Header username / name links */
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-username="false"]) article header a[role="link"],
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-username="false"]) article header h2,
+html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]) article header span:first-child a {
   filter: blur(6px) !important;
 }
 
-/* When only Display Name is blurred */
+/* X: When only Display Name is blurred */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"])[data-blindfeed-blur-username="false"] article [data-testid="User-Name"] a[role="link"]:not([tabindex="-1"]) {
   filter: blur(6px) !important;
 }
 
-/* When only Username/Handle is blurred */
+/* X: When only Username/Handle is blurred */
 html:not([data-blindfeed-enabled="false"])[data-blindfeed-blur-name="false"]:not([data-blindfeed-blur-username="false"]) article [data-testid="User-Name"] a[tabindex="-1"] {
   filter: blur(6px) !important;
 }
 
-/* Social Context (e.g., "X reposted") */
+/* Social Context (X) */
 html:not([data-blindfeed-enabled="false"]):not([data-blindfeed-blur-name="false"]) article [data-testid="socialContext"] {
   filter: blur(6px) !important;
 }

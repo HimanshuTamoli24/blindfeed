@@ -191,7 +191,7 @@ export const App: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <span className="font-semibold text-sm tracking-tight text-white">Blindfeed</span>
                 <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">
-                  FairTweets
+                  X + Instagram
                 </span>
               </div>
               <p className="text-[11px] text-neutral-500">Read content, not popularity</p>
@@ -243,7 +243,7 @@ export const App: React.FC = () => {
             </div>
             <div className="text-[11px] text-neutral-500 mt-0.5">
               {prefs.enabled
-                ? 'Zero-flash filters active on X'
+                ? 'Zero-flash filters active on X & Instagram'
                 : 'Pause filters without resetting options'}
             </div>
           </div>
@@ -305,23 +305,23 @@ export const App: React.FC = () => {
           <div className="space-y-1.5">
             <ToggleItem
               label="Like counts"
-              description="Hides count on heart button & opened post"
+              description="Hides numbers on like buttons, feed & IG Reels"
               icon={<Heart className="w-3.5 h-3.5" />}
               checked={prefs.hideLikes}
               disabled={!prefs.enabled}
               onChange={(val) => updatePreference('hideLikes', val)}
             />
             <ToggleItem
-              label="Reply counts"
-              description="Hides replies count on feed & threads"
+              label="Reply & comment counts"
+              description="Hides reply numbers on X & comments on IG"
               icon={<MessageSquare className="w-3.5 h-3.5" />}
               checked={prefs.hideReplies}
               disabled={!prefs.enabled}
               onChange={(val) => updatePreference('hideReplies', val)}
             />
             <ToggleItem
-              label="Repost counts"
-              description="Hides retweet number on buttons & stats"
+              label="Reposts & share counts"
+              description="Hides retweets on X & shares on IG Reels"
               icon={<Repeat className="w-3.5 h-3.5" />}
               checked={prefs.hideReposts}
               disabled={!prefs.enabled}
@@ -329,15 +329,15 @@ export const App: React.FC = () => {
             />
             <ToggleItem
               label="Quote post counts"
-              description="Hides quote link numbers on tweet page"
+              description="Hides quote link numbers on post view"
               icon={<Quote className="w-3.5 h-3.5" />}
               checked={prefs.hideQuotes}
               disabled={!prefs.enabled}
               onChange={(val) => updatePreference('hideQuotes', val)}
             />
             <ToggleItem
-              label="Views & impressions"
-              description="Hides view counts & analytics links"
+              label="Views & explore metrics"
+              description="Hides view counts on X & hover stats on IG"
               icon={<Eye className="w-3.5 h-3.5" />}
               checked={prefs.hideViews}
               disabled={!prefs.enabled}
@@ -357,7 +357,7 @@ export const App: React.FC = () => {
           <div className="space-y-1.5">
             <ToggleItem
               label="Display names"
-              description="Blurs author display name on timeline"
+              description="Blurs author display name on feed & headers"
               icon={<Type className="w-3.5 h-3.5" />}
               checked={prefs.blurDisplayName}
               disabled={!prefs.enabled}
@@ -365,7 +365,7 @@ export const App: React.FC = () => {
             />
             <ToggleItem
               label="Usernames (@handle)"
-              description="Blurs handle so text is judged anonymously"
+              description="Blurs handle so content is judged anonymously"
               icon={<AtSign className="w-3.5 h-3.5" />}
               checked={prefs.blurUsername}
               disabled={!prefs.enabled}
@@ -373,7 +373,7 @@ export const App: React.FC = () => {
             />
             <ToggleItem
               label="Profile pictures (Avatars)"
-              description="Blurs avatars including inside quoted posts"
+              description="Blurs avatars on X and Instagram posts"
               icon={<User className="w-3.5 h-3.5" />}
               checked={prefs.blurAvatar}
               disabled={!prefs.enabled}
@@ -381,7 +381,7 @@ export const App: React.FC = () => {
             />
             <ToggleItem
               label="Verification badges"
-              description="Blurs blue and gold checkmark badges"
+              description="Blurs blue and gold checkmarks on X & IG"
               icon={<ShieldCheck className="w-3.5 h-3.5" />}
               checked={prefs.blurBadge}
               disabled={!prefs.enabled}
@@ -389,7 +389,7 @@ export const App: React.FC = () => {
             />
             <ToggleItem
               label="Timestamps"
-              description="Blurs post date/time to avoid recency bias"
+              description="Blurs post age to avoid recency bias"
               icon={<Clock className="w-3.5 h-3.5" />}
               checked={prefs.blurTimestamp}
               disabled={!prefs.enabled}
@@ -401,8 +401,8 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <div className="p-2.5 px-3.5 bg-black border-t border-neutral-900 flex items-center justify-between text-[10px] font-mono text-neutral-500">
-        <span>PURE CSS • ZERO TRACKING</span>
-        <span className="text-neutral-600">v1.0.0</span>
+        <span>PURE CSS • X & INSTAGRAM</span>
+        <span className="text-neutral-600">v1.1.0</span>
       </div>
     </div>
   );
